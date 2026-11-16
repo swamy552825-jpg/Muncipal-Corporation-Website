@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Citizen Login</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+    <header class="header">
+
+        <div class="logo-section">
+
+            <div class="logo">
+                MC
+            </div>
+
+            <div>
+                <h1>Municipal Corporation</h1>
+                <p>Civic Issue Management Portal</p>
+            </div>
+
+        </div>
+
+        <nav>
+            <a href="/">Home</a>
+        </nav>
+
+    </header>
+
+
+    <section class="login-section">
+
+        <div class="login-card">
+
+            <h2>Citizen Login</h2>
+
+            <p class="login-subtitle">
+                Sign in to report and track civic issues.
+            </p>
+
+
+            {% if error %}
+
+                <div class="error-message">
+                    {{ error }}
+                </div>
+
+            {% endif %}
+
+
+            <form method="POST" action="/login">
+
+                <label for="email">
+                    Email Address
+                </label>
+
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="Enter your email"
+                    required
+                >
+
+
+                <label for="password">
+                    Password
+                </label>
+
+                <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    placeholder="Enter your password"
+                    required
+                >
+
+
+                <button type="submit">
+                    Login
+                </button>
+
+            </form>
+
+
+            <p class="register-text">
+                Don't have an account?
+
+                <a href="/register">
+                    Create Account
+                </a>
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <footer>
+
+        <h3>Municipal Corporation</h3>
+
+        <p>
+            Civic Issue Reporting & Management System
+        </p>
+
+        <p>
+            © 2026 Municipal Corporation. All Rights Reserved.
+        </p>
+
+    </footer>
+
+</body>
+
+</html>

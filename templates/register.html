@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Citizen Registration</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+    <header class="header">
+
+        <div class="logo-section">
+
+            <div class="logo">
+                MC
+            </div>
+
+            <div>
+                <h1>Municipal Corporation</h1>
+                <p>Civic Issue Management Portal</p>
+            </div>
+
+        </div>
+
+        <nav>
+
+            <a href="/">Home</a>
+
+        </nav>
+
+    </header>
+
+
+    <section class="register-section">
+
+        <div class="register-card">
+
+            <h2>Citizen Registration</h2>
+
+            <p class="register-subtitle">
+                Create an account to report and track civic issues.
+            </p>
+
+
+            <form method="POST" action="/register">
+
+                <label for="name">
+                    Full Name
+                </label>
+
+                <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    placeholder="Enter your full name"
+                    required
+                >
+
+
+                <label for="email">
+                    Email Address
+                </label>
+
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="Enter your email"
+                    required
+                >
+
+
+                <label for="phone">
+                    Mobile Number
+                </label>
+
+                <input
+                    type="tel"
+                    id="phone"
+                    name="phone"
+                    placeholder="Enter your mobile number"
+                    pattern="[0-9]{10}"
+                    maxlength="10"
+                    required
+                >
+
+
+                <label for="password">
+                    Password
+                </label>
+
+                <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    placeholder="Create a password"
+                    minlength="8"
+                    required
+                >
+
+
+                <button type="submit">
+                    Create Account
+                </button>
+
+            </form>
+
+
+            <p class="login-text">
+                Already have an account?
+                <a href="#">Login</a>
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <footer>
+
+        <h3>Municipal Corporation</h3>
+
+        <p>
+            Civic Issue Reporting & Management System
+        </p>
+
+        <p>
+            © 2026 Municipal Corporation. All Rights Reserved.
+        </p>
+
+    </footer>
+
+</body>
+
+</html>

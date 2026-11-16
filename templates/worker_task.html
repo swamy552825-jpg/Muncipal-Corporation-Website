@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Worker Task | Municipal Corporation</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<header class="header">
+
+    <div class="logo-section">
+
+        <div class="logo">
+            MC
+        </div>
+
+        <div>
+            <h1>Municipal Corporation</h1>
+            <p>Worker Portal</p>
+        </div>
+
+    </div>
+
+    <nav>
+
+        <a href="{{ url_for('worker_dashboard') }}">
+            Dashboard
+        </a>
+
+        <a href="{{ url_for('worker_logout') }}">
+            Logout
+        </a>
+
+    </nav>
+
+</header>
+
+
+<section class="dashboard">
+
+    <div class="dashboard-heading">
+
+        <p>WORKER TASK</p>
+
+        <h2>
+            Complaint #{{ complaint.id }}
+        </h2>
+
+        <p>
+            View complaint details and update the task status.
+        </p>
+
+    </div>
+
+
+    <div class="complaint-card">
+
+        {% if error %}
+            <p class="error-message">{{ error }}</p>
+        {% endif %}
+
+        <!-- Complaint Number -->
+
+        <p>
+            <strong>Complaint Number:</strong>
+            {{ complaint.complaint_number }}
+        </p>
+
+
+        <!-- Category -->
+
+        <p>
+            <strong>Category:</strong>
+            {{ complaint.category }}
+        </p>
+
+
+        <!-- Description -->
+
+        <p>
+            <strong>Description:</strong>
+            {{ complaint.description }}
+        </p>
+
+        {% if complaint.issue_photo %}
+            <p><strong>Issue photo:</strong></p>
+            <img class="evidence-photo" src="{{ url_for('static', filename='uploads/' + complaint.issue_photo) }}" alt="Photo submitted with the issue">
+        {% endif %}
+
+
+        <!-- Location -->
+
+        <p>
+            <strong>Location:</strong>
+            {{ complaint.address }}
+        </p>
+
+
+        <!-- Severity -->
+
+        <p>
+            <strong>Severity:</strong>
+            {{ complaint.severity }}
+        </p>
+
+
+        <!-- Current Status -->
+
+        <p>
+            <strong>Current Status:</strong>
+
+            {{ complaint.status }}
+
+        </p>
+
+
+        <hr>
+
+
+        <!-- UPDATE TASK -->
+
+        <h3>
+            Update Task
+        </h3>
+
+
+        <form method="POST" enctype="multipart/form-data">
+
+
+            <!-- STATUS -->
+
+            <label for="status">
+
+                <strong>
+                    Status:
+                </strong>
+
+            </label>
+
+
+            <br>
+
+
+            <select
+                name="status"
+                id="status"
+                required
+            >
+
+                <option
+                    value="Assigned"
+                    {% if complaint.status == "Assigned" %}
+                        selected
+                    {% endif %}
+                >
+                    Assigned
+                </option>
+
+
+                <option
+                    value="In Progress"
+                    {% if complaint.status == "In Progress" %}
+                        selected
+                    {% endif %}
+                >
+                    In Progress
+                </option>
+
+
+                <option
+                    value="Completed"
+                    {% if complaint.status == "Completed" %}
+                        selected
+                    {% endif %}
+                >
+                    Completed
+                </option>
+
+            </select>
+
+
+            <br>
+            <br>
+
+
+            <!-- COMPLETION REPORT -->
+
+            <label for="completion_report">
+
+                <strong>
+                    Completion Report:
+                </strong>
+
+            </label>
+
+
+            <br>
+            <br>
+
+
+            <textarea
+                name="completion_report"
+                id="completion_report"
+                rows="6"
+                placeholder="Describe the work completed..."
+            >{{ complaint.completion_report or "" }}</textarea>
+
+
+            <br>
+            <br>
+
+            <label for="completion_photo"><strong>Completion Photo:</strong></label>
+            <br><br>
+            <input type="file" name="completion_photo" id="completion_photo" accept="image/png,image/jpeg,image/webp">
+            <p class="field-help">Upload a photo showing the completed work (JPG, PNG, or WEBP; up to 8 MB).</p>
+
+            {% if complaint.completion_photo %}
+                <img class="evidence-photo" src="{{ url_for('static', filename='uploads/' + complaint.completion_photo) }}" alt="Current completion evidence">
+            {% endif %}
+
+            <br>
+
+
+            <!-- UPDATE BUTTON -->
+
+            <button type="submit">
+
+                Update Task
+
+            </button>
+
+
+        </form>
+
+
+        <!-- COMPLETION INFORMATION -->
+
+        {% if complaint.completed_at %}
+
+            <hr>
+
+            <h3>
+                Completion Information
+            </h3>
+
+
+            <p>
+
+                <strong>
+                    Completed At:
+                </strong>
+
+                {{ complaint.completed_at }}
+
+            </p>
+
+
+            {% if complaint.completion_report %}
+
+                <p>
+
+                    <strong>
+                        Completion Report:
+                    </strong>
+
+                </p>
+
+
+                <p>
+                    {{ complaint.completion_report }}
+                </p>
+
+            {% endif %}
+
+        {% endif %}
+
+    </div>
+
+</section>
+
+
+<footer>
+
+    <h3>
+        Municipal Corporation
+    </h3>
+
+    <p>
+        Civic Issue Reporting & Management System
+    </p>
+
+    <p>
+        © 2026 Municipal Corporation.
+        All Rights Reserved.
+    </p>
+
+</footer>
+
+</body>
+
+</html>

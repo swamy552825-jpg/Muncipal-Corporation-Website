@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Complaint Submitted | Municipal Corporation</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+    <header class="header">
+
+        <div class="logo-section">
+
+            <div class="logo">
+                MC
+            </div>
+
+            <div>
+
+                <h1>Municipal Corporation</h1>
+
+                <p>
+                    Civic Issue Management Portal
+                </p>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <section class="success-section">
+
+        <div class="success-card">
+
+            <div class="success-icon">
+                ✓
+            </div>
+
+            <h2>
+                Complaint Submitted Successfully
+            </h2>
+
+            <p>
+                Your complaint has been registered with
+                the Municipal Corporation.
+            </p>
+
+
+            <div class="complaint-number">
+
+                <span>
+                    Complaint Number
+                </span>
+
+                <strong>
+                    {{ complaint.complaint_number }}
+                </strong>
+
+            </div>
+
+
+            <p class="tracking-message">
+
+                Please keep this complaint number safe.
+                You can use it to track the progress of your complaint.
+
+            </p>
+
+
+            <div class="success-buttons">
+
+                <a href="/dashboard"
+                   class="primary-success-btn">
+
+                    Go to Dashboard
+
+                </a>
+
+                <a href="/report-issue"
+                   class="secondary-success-btn">
+
+                    Report Another Issue
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <footer>
+
+        <h3>
+            Municipal Corporation
+        </h3>
+
+        <p>
+            Civic Issue Reporting & Management System
+        </p>
+
+        <p>
+            © 2026 Municipal Corporation. All Rights Reserved.
+        </p>
+
+    </footer>
+
+</body>
+
+</html>

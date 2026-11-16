@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Report an Issue | Municipal Corporation</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+
+</head>
+
+<body>
+
+    <!-- HEADER -->
+
+    <header class="header">
+
+        <div class="logo-section">
+
+            <div class="logo">
+                MC
+            </div>
+
+            <div>
+
+                <h1>Municipal Corporation</h1>
+
+                <p>
+                    Civic Issue Management Portal
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <nav>
+
+            <a href="/dashboard">
+                Dashboard
+            </a>
+
+            <a href="/logout"
+               class="login-btn">
+                Logout
+            </a>
+
+        </nav>
+
+    </header>
+
+
+    <!-- COMPLAINT FORM -->
+
+    <section class="complaint-section">
+
+        <div class="complaint-card">
+
+            <div class="complaint-heading">
+
+                <p>
+                    CITIZEN SERVICE
+                </p>
+
+                <h2>
+                    Report a Municipal Issue
+                </h2>
+
+                <span>
+                    Provide accurate information so the issue can
+                    be resolved quickly.
+                </span>
+
+            </div>
+
+
+            <form method="POST"
+                  action="/report-issue"
+                  enctype="multipart/form-data">
+
+                {% if error %}
+                    <p class="error-message">{{ error }}</p>
+                {% endif %}
+
+
+                <!-- CATEGORY -->
+
+                <label for="category">
+                    Issue Category
+                </label>
+
+                <select id="category"
+                        name="category"
+                        required>
+
+                    <option value="">
+                        Select issue category
+                    </option>
+
+                    <option value="Street Light">
+                        Street Light Failure
+                    </option>
+
+                    <option value="Drainage">
+                        Drainage Issue
+                    </option>
+
+                    <option value="Open Manhole">
+                        Open Manhole
+                    </option>
+
+                    <option value="Road Damage">
+                        Road Damage / Pothole
+                    </option>
+
+                    <option value="Garbage">
+                        Garbage / Waste
+                    </option>
+
+                    <option value="Mosquito">
+                        Mosquito Problem
+                    </option>
+
+                    <option value="Water Leakage">
+                        Water Leakage
+                    </option>
+
+                    <option value="Sewer Overflow">
+                        Sewer Overflow
+                    </option>
+
+                    <option value="Other">
+                        Other
+                    </option>
+
+                </select>
+
+
+                <!-- DESCRIPTION -->
+
+                <label for="description">
+                    Problem Description
+                </label>
+
+                <textarea
+                    id="description"
+                    name="description"
+                    rows="5"
+                    placeholder="Describe the problem clearly..."
+                    required></textarea>
+
+
+                <!-- SEVERITY -->
+
+                <label for="severity">
+                    Severity of Problem
+                </label>
+
+                <select id="severity"
+                        name="severity"
+                        required>
+
+                    <option value="">
+                        Select severity
+                    </option>
+
+                    <option value="Low">
+                        Low - Can be handled normally
+                    </option>
+
+                    <option value="Medium">
+                        Medium - Should be resolved soon
+                    </option>
+
+                    <option value="High">
+                        High - Requires urgent attention
+                    </option>
+
+                    <option value="Emergency">
+                        Emergency - Immediate public safety risk
+                    </option>
+
+                </select>
+
+
+                <!-- ADDRESS -->
+
+                <label for="address">
+                    Location / Address
+                </label>
+
+                <textarea
+                    id="address"
+                    name="address"
+                    rows="3"
+                    placeholder="Enter the exact location of the problem..."
+                    required></textarea>
+
+
+                <!-- GPS -->
+
+                <div class="location-section">
+
+                    <div>
+
+                        <label for="latitude">
+                            Latitude
+                        </label>
+
+                        <input
+                            type="text"
+                            id="latitude"
+                            name="latitude"
+                            placeholder="Example: 16.5062"
+                        >
+
+                    </div>
+
+
+                    <div>
+
+                        <label for="longitude">
+                            Longitude
+                        </label>
+
+                        <input
+                            type="text"
+                            id="longitude"
+                            name="longitude"
+                            placeholder="Example: 80.6480"
+                        >
+
+                    </div>
+
+                </div>
+
+                <div class="map-section">
+                    <label>Pin the issue location</label>
+                    <p class="field-help">Click the map or use your current location. The coordinates above will be filled automatically.</p>
+                    <div id="issue-map" class="issue-map"></div>
+                    <button type="button" class="location-button" id="use-location">Use my current location</button>
+                </div>
+
+                <label for="issue_photo">Photo of the issue <span class="optional">(optional)</span></label>
+                <input type="file" id="issue_photo" name="issue_photo" accept="image/png,image/jpeg,image/webp">
+                <p class="field-help">JPG, PNG, or WEBP; up to 8 MB.</p>
+
+
+                <!-- SUBMIT -->
+
+                <button type="submit"
+                        class="submit-complaint">
+
+                    Submit Complaint
+
+                </button>
+
+
+                <a href="/dashboard"
+                   class="cancel-button">
+
+                    Cancel
+
+                </a>
+
+            </form>
+
+        </div>
+
+    </section>
+
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        <h3>
+            Municipal Corporation
+        </h3>
+
+        <p>
+            Civic Issue Reporting & Management System
+        </p>
+
+        <p>
+            © 2026 Municipal Corporation. All Rights Reserved.
+        </p>
+
+    </footer>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+        const latitudeInput = document.getElementById('latitude');
+        const longitudeInput = document.getElementById('longitude');
+        const map = L.map('issue-map').setView([20.5937, 78.9629], 5);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19, attribution: '&copy; OpenStreetMap contributors' }).addTo(map);
+        let marker;
+        function setLocation(lat, lng, zoom = 16) {
+            latitudeInput.value = Number(lat).toFixed(6);
+            longitudeInput.value = Number(lng).toFixed(6);
+            if (marker) marker.setLatLng([lat, lng]); else marker = L.marker([lat, lng]).addTo(map);
+            map.setView([lat, lng], zoom);
+        }
+        map.on('click', event => setLocation(event.latlng.lat, event.latlng.lng));
+        document.getElementById('use-location').addEventListener('click', () => {
+            if (!navigator.geolocation) return alert('Location services are not supported by this browser.');
+            navigator.geolocation.getCurrentPosition(position => setLocation(position.coords.latitude, position.coords.longitude), () => alert('Unable to get your location. Please pin it on the map.'));
+        });
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Worker Dashboard | Municipal Corporation</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<header class="header">
+
+    <div class="logo-section">
+
+        <div class="logo">
+            MC
+        </div>
+
+        <div>
+            <h1>Municipal Corporation</h1>
+            <p>Worker Portal</p>
+        </div>
+
+    </div>
+
+    <nav>
+        <span>
+            Welcome, {{ worker_name }}
+        </span>
+
+        <a href="{{ url_for('worker_logout') }}">
+            Logout
+        </a>
+    </nav>
+
+</header>
+
+
+<section class="dashboard">
+
+    <div class="dashboard-heading">
+
+        <p>WORKER PORTAL</p>
+
+        <h2>Assigned Complaints</h2>
+
+        <p>
+            View and update the municipal issues assigned to you.
+        </p>
+
+    </div>
+
+
+    {% if complaints %}
+
+        <div class="complaints-container">
+
+            {% for complaint in complaints %}
+
+                <div class="complaint-card">
+
+                    <div class="complaint-header">
+
+                        <h3>
+                            Complaint #{{ complaint.id }}
+                        </h3>
+
+                        <span>
+                            {{ complaint.status }}
+                        </span>
+
+                    </div>
+
+
+                    <p>
+                        <strong>Complaint Number:</strong>
+                        {{ complaint.complaint_number }}
+                    </p>
+
+
+                    <p>
+                        <strong>Category:</strong>
+                        {{ complaint.category }}
+                    </p>
+
+
+                    <p>
+                        <strong>Location:</strong>
+                        {{ complaint.address }}
+                    </p>
+
+
+                    <p>
+                        <strong>Severity:</strong>
+                        {{ complaint.severity }}
+                    </p>
+
+
+                    <p>
+                        <strong>Description:</strong>
+                        {{ complaint.description }}
+                    </p>
+
+
+                    <p>
+                        <strong>Status:</strong>
+                        {{ complaint.status }}
+                    </p>
+
+
+                    <a href="{{ url_for('worker_task', complaint_id=complaint.id) }}">
+
+                        <button type="button">
+                            View Task
+                        </button>
+
+                    </a>
+
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    {% else %}
+
+        <div class="empty-state">
+
+            <h3>No Assigned Complaints</h3>
+
+            <p>
+                New tasks assigned by the municipal administration
+                will appear here.
+            </p>
+
+        </div>
+
+    {% endif %}
+
+</section>
+
+
+<footer>
+
+    <h3>Municipal Corporation</h3>
+
+    <p>
+        Civic Issue Reporting & Management System
+    </p>
+
+    <p>
+        © 2026 Municipal Corporation. All Rights Reserved.
+    </p>
+
+</footer>
+
+</body>
+
+</html>

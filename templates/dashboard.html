@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Citizen Dashboard</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+    <header class="header">
+
+        <div class="logo-section">
+
+            <div class="logo">
+                MC
+            </div>
+
+            <div>
+                <h1>Municipal Corporation</h1>
+                <p>Civic Issue Management Portal</p>
+            </div>
+
+        </div>
+
+        <nav>
+
+            <a href="/dashboard">
+                Dashboard
+            </a>
+
+            <a href="/logout" class="login-btn">
+                Logout
+            </a>
+
+        </nav>
+
+    </header>
+
+
+    <section class="dashboard">
+
+        <div class="dashboard-heading">
+
+            <p>Citizen Portal</p>
+
+            <h2>
+                Welcome, {{ user_name }}
+            </h2>
+
+            <p>
+                Manage your civic complaints and track their progress.
+            </p>
+
+        </div>
+
+
+        <div class="dashboard-cards">
+
+            <div class="dashboard-card">
+
+                <div class="dashboard-icon">
+                    📝
+                </div>
+
+                <h3>Report an Issue</h3>
+
+                <p>
+                    Report a street light, drainage,
+                    road or other municipal problem.
+                </p>
+
+                <a href="/report-issue">
+                    Report Issue →
+                </a>
+
+            </div>
+
+
+            <div class="dashboard-card">
+
+                <div class="dashboard-icon">
+                    📍
+                </div>
+
+                <h3>My Complaints</h3>
+
+                <p>
+                    View all complaints submitted by you.
+                </p>
+
+                <a href="/my-complaints">
+                    Track Status →
+                </a>
+
+            </div>
+
+
+            <div class="dashboard-card">
+
+                <div class="dashboard-icon">
+                    🔎
+                </div>
+
+                <h3>Track Complaint</h3>
+
+                <p>
+                    Check the current status of your complaint.
+                </p>
+
+                <a href="#">
+                    Track Status →
+                </a>
+
+            </div>
+
+
+            <div class="dashboard-card">
+
+                <div class="dashboard-icon">
+                    👤
+                </div>
+
+                <h3>My Profile</h3>
+
+                <p>
+                    View and manage your account information.
+                </p>
+
+                <a href="#">
+                    View Profile →
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <footer>
+
+        <h3>Municipal Corporation</h3>
+
+        <p>
+            Civic Issue Reporting & Management System
+        </p>
+
+        <p>
+            © 2026 Municipal Corporation. All Rights Reserved.
+        </p>
+
+    </footer>
+
+</body>
+
+</html>

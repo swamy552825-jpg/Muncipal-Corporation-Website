@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>My Complaints | Municipal Corporation</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<header class="header">
+
+    <div class="logo-section">
+
+        <div class="logo">
+            MC
+        </div>
+
+        <div>
+
+            <h1>
+                Municipal Corporation
+            </h1>
+
+            <p>
+                Civic Issue Management Portal
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <nav>
+
+        <a href="{{ url_for('dashboard') }}">
+            Dashboard
+        </a>
+
+        <a href="{{ url_for('logout') }}">
+            Logout
+        </a>
+
+    </nav>
+
+</header>
+
+
+<section class="complaints-section">
+
+    <div class="complaints-container">
+
+        <div class="complaints-heading">
+
+            <p>
+                CITIZEN PORTAL
+            </p>
+
+            <h2>
+                My Complaints
+            </h2>
+
+            <span>
+                View and track the municipal issues you have reported.
+            </span>
+
+        </div>
+
+
+        {% if complaints %}
+
+            <div class="complaints-table-wrapper">
+
+                <table class="complaints-table">
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                Complaint ID
+                            </th>
+
+                            <th>
+                                Category
+                            </th>
+
+                            <th>
+                                Severity
+                            </th>
+
+                            <th>
+                                Status
+                            </th>
+
+                            <th>
+                                Submitted
+                            </th>
+
+                            <th>
+                                Completion Report
+                            </th>
+
+                            <th>
+                                Completed At
+                            </th>
+
+                            <th>
+                                Photos
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+                        {% for complaint in complaints %}
+
+                            <tr>
+
+                                <!-- COMPLAINT ID -->
+
+                                <td>
+
+                                    <strong>
+                                        {{ complaint.complaint_number }}
+                                    </strong>
+
+                                </td>
+
+
+                                <!-- CATEGORY -->
+
+                                <td>
+                                    {{ complaint.category }}
+                                </td>
+
+
+                                <!-- SEVERITY -->
+
+                                <td>
+
+                                    <span class="severity
+                                        severity-{{ complaint.severity|lower }}">
+
+                                        {{ complaint.severity }}
+
+                                    </span>
+
+                                </td>
+
+
+                                <!-- STATUS -->
+
+                                <td>
+
+                                    <span class="status
+                                        status-{{ complaint.status|lower|replace(' ', '-') }}">
+
+                                        {{ complaint.status }}
+
+                                    </span>
+
+                                </td>
+
+
+                                <!-- SUBMITTED DATE -->
+
+                                <td>
+
+                                    {% if complaint.created_at %}
+
+                                        {{ complaint.created_at.strftime('%d-%m-%Y') }}
+
+                                    {% else %}
+
+                                        -
+
+                                    {% endif %}
+
+                                </td>
+
+
+                                <!-- COMPLETION REPORT -->
+
+                                <td>
+
+                                    {% if complaint.completion_report %}
+
+                                        <div class="completion-report">
+
+                                            <strong>
+                                                Worker Report:
+                                            </strong>
+
+                                            <p>
+                                                {{ complaint.completion_report }}
+                                            </p>
+
+                                        </div>
+
+                                    {% else %}
+
+                                        <span>
+                                            Not completed yet
+                                        </span>
+
+                                    {% endif %}
+
+                                </td>
+
+
+                                <!-- COMPLETED DATE -->
+
+                                <td>
+
+                                    {% if complaint.completed_at %}
+
+                                        {{ complaint.completed_at.strftime('%d-%m-%Y %H:%M') }}
+
+                                    {% else %}
+
+                                        -
+
+                                    {% endif %}
+
+                                </td>
+
+                                <td>
+                                    {% if complaint.issue_photo %}
+                                        <a href="{{ url_for('static', filename='uploads/' + complaint.issue_photo) }}" target="_blank">Issue photo</a><br>
+                                    {% endif %}
+                                    {% if complaint.completion_photo %}
+                                        <a href="{{ url_for('static', filename='uploads/' + complaint.completion_photo) }}" target="_blank">Completion photo</a>
+                                    {% endif %}
+                                    {% if not complaint.issue_photo and not complaint.completion_photo %}—{% endif %}
+                                </td>
+
+                            </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        {% else %}
+
+            <div class="no-complaints">
+
+                <div class="no-complaints-icon">
+                    📋
+                </div>
+
+                <h3>
+                    No Complaints Yet
+                </h3>
+
+                <p>
+                    You haven't reported any municipal issues yet.
+                </p>
+
+                <a href="{{ url_for('report_issue') }}">
+                    Report an Issue
+                </a>
+
+            </div>
+
+        {% endif %}
+
+
+        <div class="complaints-actions">
+
+            <a href="{{ url_for('report_issue') }}"
+               class="primary-action">
+
+                + Report New Issue
+
+            </a>
+
+
+            <a href="{{ url_for('dashboard') }}"
+               class="secondary-action">
+
+                Back to Dashboard
+
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<footer>
+
+    <h3>
+        Municipal Corporation
+    </h3>
+
+    <p>
+        Civic Issue Reporting & Management System
+    </p>
+
+    <p>
+        © 2026 Municipal Corporation. All Rights Reserved.
+    </p>
+
+</footer>
+
+</body>
+
+</html>
